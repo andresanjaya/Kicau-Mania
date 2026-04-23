@@ -6,9 +6,6 @@ export default function Header({ isMobile }) {
       <span style={{ ...styles.headerTitle, ...(isMobile ? styles.headerTitleMobile : {}) }}>
         Kicau Mania
       </span>
-      <span style={{ ...styles.headerSub, ...(isMobile ? styles.headerSubMobile : {}) }}>
-        Tutup mulut + Lambaikan tangan = Kucing joget!
-      </span>
     </div>
   );
 }

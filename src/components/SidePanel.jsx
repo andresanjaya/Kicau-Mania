@@ -7,11 +7,10 @@ export default function SidePanel({ isActive, onToggleCamera, isMobile }) {
       <div style={styles.instructionCard}>
         <h3 style={styles.instructionTitle}>Cara Pakai</h3>
         <ol style={{ ...styles.instructionList, ...(isMobile ? styles.instructionListMobile : {}) }}>
-          <li>Klik <strong>Aktifkan Kamera</strong></li>
-          <li>Izinkan akses kamera</li>
-          <li><strong>Lambaikan tangan</strong> ke kamera</li>
-          <li>Lihat progress bar naik</li>
-          <li>Video kucing muncul!</li>
+          <li>Klik <strong>Aktifkan Kamera</strong> dan izinkan akses</li>
+          <li><strong>Tutup mulut</strong> dengan tangan sambil memegang hidung</li>
+          <li>Gerakkan tangan <strong>mengipas di depan dada</strong></li>
+          <li>Musik Kicau Mania & Video kucing muncul!</li>
         </ol>
       </div>
 
