@@ -5,13 +5,13 @@ export default function SidePanel({ isActive, onToggleCamera }) {
   return (
     <div style={styles.sidePanel}>
       <div style={styles.instructionCard}>
-        <h3 style={styles.instructionTitle}>📖 Cara Pakai</h3>
+        <h3 style={styles.instructionTitle}>Cara Pakai</h3>
         <ol style={styles.instructionList}>
           <li>Klik <strong>Aktifkan Kamera</strong></li>
           <li>Izinkan akses kamera</li>
           <li><strong>Lambaikan tangan</strong> ke kamera</li>
           <li>Lihat progress bar naik</li>
-          <li>🐱 Video kucing muncul!</li>
+          <li>Video kucing muncul!</li>
         </ol>
       </div>
 
