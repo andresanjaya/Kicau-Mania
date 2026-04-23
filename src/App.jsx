@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import {
   detectBlowKissGesture,
   detectWaveGesture,
-  detectGestureCombo,
 } from './utils/gestureDetection';
 import {
   MUSIC_URL,
@@ -34,6 +33,10 @@ export default function App() {
   // Gesture hold counter
   const gestureCountRef = useRef(0);
   const isTriggerredRef = useRef(false);
+  const fistRecentFramesRef = useRef(0);
+  const waveRecentFramesRef = useRef(0);
+
+  const GESTURE_MEMORY_FRAMES = 14;
 
   // Check if MediaPipe is loaded on mount
   useEffect(() => {
@@ -101,8 +104,21 @@ export default function App() {
       console.log(`Hands: ${multiHandLandmarks.length} | Fist: ${hasFist} | Wave: ${hasWave} | Progress: ${gestureCountRef.current}/${GESTURE_HOLD_FRAMES}`);
     }
 
-    // Detect the full gesture combo
-    const gestureDetected = detectGestureCombo(multiHandLandmarks);
+    // Keep short memory so fist and wave can be recognized across nearby frames.
+    if (hasFist) {
+      fistRecentFramesRef.current = GESTURE_MEMORY_FRAMES;
+    } else {
+      fistRecentFramesRef.current = Math.max(0, fistRecentFramesRef.current - 1);
+    }
+
+    if (hasWave) {
+      waveRecentFramesRef.current = GESTURE_MEMORY_FRAMES;
+    } else {
+      waveRecentFramesRef.current = Math.max(0, waveRecentFramesRef.current - 1);
+    }
+
+    const gestureDetected =
+      fistRecentFramesRef.current > 0 && waveRecentFramesRef.current > 0;
 
     if (gestureDetected) {
       gestureCountRef.current++;
@@ -135,6 +151,8 @@ export default function App() {
 
   const triggerCat = useCallback(() => {
     setShowCat(true);
+    fistRecentFramesRef.current = 0;
+    waveRecentFramesRef.current = 0;
     if (audioRef.current && MUSIC_URL) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch((e) => console.log('Audio blocked:', e));
@@ -218,6 +236,8 @@ export default function App() {
     setIsActive(false);
     setShowCat(false);
     setStatusText('Aktifkan kamera untuk mulai!');
+    fistRecentFramesRef.current = 0;
+    waveRecentFramesRef.current = 0;
     const canvas = canvasRef.current;
     if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
   }, []);

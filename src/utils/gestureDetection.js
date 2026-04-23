@@ -11,7 +11,7 @@ function distance(a, b) {
 function isFingerExtended(landmarks, tipIndex, pipIndex) {
   const tip = landmarks[tipIndex];
   const pip = landmarks[pipIndex];
-  return tip.y < pip.y - 0.015;
+  return tip.y < pip.y - 0.01;
 }
 
 /**
@@ -20,7 +20,7 @@ function isFingerExtended(landmarks, tipIndex, pipIndex) {
 function isFingerCurled(landmarks, tipIndex, pipIndex) {
   const tip = landmarks[tipIndex];
   const pip = landmarks[pipIndex];
-  return tip.y > pip.y + 0.015;
+  return tip.y > pip.y + 0.01;
 }
 
 /**
@@ -42,9 +42,9 @@ export function detectBlowKissGesture(landmarks) {
   const avgTipDistanceToWrist =
     fingertips.reduce((sum, tip) => sum + distance(tip, wrist), 0) / fingertips.length;
 
-  const isCompactHand = avgTipDistanceToWrist < 0.23;
+  const isCompactHand = avgTipDistanceToWrist < 0.27;
 
-  return curledCount >= 3 && isCompactHand;
+  return curledCount >= 2 && isCompactHand;
 }
 
 /**
@@ -67,7 +67,7 @@ export function detectWaveGesture(landmarks) {
   const handScale = Math.max(distance(wrist, landmarks[9]), 0.001);
   const tipSpread = distance(indexTip, pinkyTip) / handScale;
 
-  const isOpenAndSpread = extendedCount >= 3 && tipSpread > 1.2;
+  const isOpenAndSpread = extendedCount >= 2 && tipSpread > 1.05;
 
   return isOpenAndSpread;
 }

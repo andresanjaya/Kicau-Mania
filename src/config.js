@@ -13,8 +13,8 @@ export const MUSIC_URL = "/Kicau-Mania/sounds/sound.mp3";
 export const CAT_VIDEO_URL = "/Kicau-Mania/videos/cat.gif";
 
 // How many frames the gesture must be held before triggering
-// Slightly higher to reduce false trigger
-export const GESTURE_HOLD_FRAMES = 8;
+// Balanced hold duration: responsive but still stable
+export const GESTURE_HOLD_FRAMES = 6;
 
 // How long to show the cat animation (in milliseconds)
 export const CAT_DISPLAY_DURATION = 8000;
@@ -23,8 +23,8 @@ export const CAT_DISPLAY_DURATION = 8000;
 export const HANDS_CONFIG = {
   maxNumHands: 2,
   modelComplexity: 1,  // 0 = lite/fast model, 1 = full
-  minDetectionConfidence: 0.6,
-  minTrackingConfidence: 0.6,
+  minDetectionConfidence: 0.45,
+  minTrackingConfidence: 0.45,
 };
 
 // Camera settings
