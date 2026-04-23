@@ -15,21 +15,7 @@ export default function SidePanel({ isActive, onToggleCamera }) {
         </ol>
       </div>
 
-      <div style={styles.musicCard}>
-        <h3 style={styles.musicTitle}>🎵 Setup Media</h3>
-        <p style={styles.musicDesc}>
-          Edit di <code style={styles.code}>src/config.js</code>:
-        </p>
-        <div style={{ fontSize: '0.7rem', color: 'rgba(255,200,100,0.8)', marginTop: '6px' }}>
-          <div>🎵 MUSIC_URL: <code style={{ color: '#FFE66D' }}>/sounds/sound.mp3</code></div>
-          <div>🎬 CAT_VIDEO_URL: <code style={{ color: '#FFE66D' }}>/videos/cat.mp4</code></div>
-        </div>
-        {MUSIC_URL && CAT_VIDEO_URL ? (
-          <span style={styles.musicActive}>✅ Musik & Video ready</span>
-        ) : (
-          <span style={styles.musicInactive}>⚠️ Setup media files</span>
-        )}
-      </div>
+     
 
       <div style={{
         background: 'rgba(255,255,255,0.05)',
