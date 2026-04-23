@@ -17,6 +17,12 @@ export const styles = {
     backdropFilter: 'blur(10px)',
     flexShrink: 0,
   },
+  headerMobile: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '4px',
+    padding: '10px 14px',
+  },
   headerTitle: {
     fontFamily: 'Fredoka One, cursive',
     fontSize: '1.4rem',
@@ -24,9 +30,17 @@ export const styles = {
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
   },
+  headerTitleMobile: {
+    fontSize: '1.85rem',
+    lineHeight: 1.1,
+  },
   headerSub: {
     fontSize: '0.8rem',
     color: 'rgba(255,255,255,0.5)',
+  },
+  headerSubMobile: {
+    fontSize: '0.92rem',
+    lineHeight: 1.3,
   },
   main: {
     display: 'flex',
@@ -34,6 +48,13 @@ export const styles = {
     padding: '20px',
     flex: 1,
     overflow: 'hidden',
+  },
+  mainMobile: {
+    flexDirection: 'column',
+    gap: '12px',
+    padding: '12px',
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
   cameraBox: {
     flex: 1,
@@ -44,6 +65,10 @@ export const styles = {
     border: '2px solid rgba(255,107,157,0.25)',
     boxShadow: '0 0 40px rgba(196,77,255,0.15)',
     minHeight: '300px',
+  },
+  cameraBoxMobile: {
+    minHeight: '52vh',
+    borderRadius: '16px',
   },
   hiddenVideo: {
     position: 'absolute',
@@ -102,12 +127,27 @@ export const styles = {
     border: '1px solid rgba(255,107,157,0.3)',
     whiteSpace: 'nowrap',
   },
+  statusBadgeMobile: {
+    maxWidth: 'calc(100% - 20px)',
+    whiteSpace: 'normal',
+    textAlign: 'center',
+    fontSize: '0.74rem',
+    padding: '7px 10px',
+    bottom: '10px',
+  },
   debugRow: {
     position: 'absolute',
     top: '12px',
     left: '12px',
     display: 'flex',
     gap: '8px',
+  },
+  debugRowMobile: {
+    left: '8px',
+    right: '8px',
+    gap: '6px',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   debugBadge: {
     padding: '4px 12px',
@@ -116,12 +156,20 @@ export const styles = {
     fontWeight: '700',
     transition: 'background 0.2s ease',
   },
+  debugBadgeMobile: {
+    fontSize: '0.66rem',
+    padding: '3px 8px',
+  },
   sidePanel: {
     width: '260px',
     display: 'flex',
     flexDirection: 'column',
     gap: '14px',
     flexShrink: 0,
+  },
+  sidePanelMobile: {
+    width: '100%',
+    gap: '10px',
   },
   instructionCard: {
     background: 'rgba(255,255,255,0.05)',
@@ -140,6 +188,10 @@ export const styles = {
     fontSize: '0.82rem',
     color: 'rgba(255,255,255,0.8)',
     lineHeight: '1.8',
+  },
+  instructionListMobile: {
+    fontSize: '0.98rem',
+    lineHeight: '1.5',
   },
   musicCard: {
     background: 'rgba(255,255,255,0.05)',
@@ -187,6 +239,12 @@ export const styles = {
     letterSpacing: '0.5px',
     boxShadow: '0 4px 20px rgba(255,107,157,0.3)',
     marginTop: 'auto',
+  },
+  btnMobile: {
+    marginTop: 0,
+    width: '100%',
+    fontSize: '1.15rem',
+    padding: '16px',
   },
   catOverlay: {
     position: 'fixed',

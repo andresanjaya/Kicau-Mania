@@ -19,6 +19,7 @@ import SidePanel from './components/SidePanel';
 import CatOverlay from './components/CatOverlay';
 
 export default function App() {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const handsRef = useRef(null);
@@ -236,6 +237,12 @@ export default function App() {
     };
   }, [stopCamera]);
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const progressPct = Math.min(
     100,
     (gestureCountRef.current / GESTURE_HOLD_FRAMES) * 100
@@ -243,9 +250,9 @@ export default function App() {
 
   return (
     <div style={styles.container}>
-      <Header />
+      <Header isMobile={isMobile} />
 
-      <div style={styles.main}>
+      <div style={{ ...styles.main, ...(isMobile ? styles.mainMobile : {}) }}>
         <CameraView
           videoRef={videoRef}
           canvasRef={canvasRef}
@@ -253,9 +260,14 @@ export default function App() {
           statusText={statusText}
           gestureDebug={gestureDebug}
           progressPct={progressPct}
+          isMobile={isMobile}
         />
 
-        <SidePanel isActive={isActive} onToggleCamera={handleToggleCamera} />
+        <SidePanel
+          isActive={isActive}
+          onToggleCamera={handleToggleCamera}
+          isMobile={isMobile}
+        />
       </div>
 
       <CatOverlay isVisible={showCat} onClose={() => setShowCat(false)} />

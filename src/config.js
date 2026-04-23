@@ -7,10 +7,10 @@
 // File bisa diletakkan di folder public/sounds/
 export const MUSIC_URL = "/Kicau-Mania/sounds/sound.mp3";
 
-// Cat Video URL - Video kucing dengan transparent background
-// Format: MP4, WebM (dengan alpha channel/transparency)
+// Cat media URL - GIF kucing
+// Format: GIF
 // File bisa diletakkan di folder public/videos/
-export const CAT_VIDEO_URL = "/Kicau-Mania/videos/video.webm";
+export const CAT_VIDEO_URL = "/Kicau-Mania/videos/cat.gif";
 
 // How many frames the gesture must be held before triggering
 // Very low for easy testing

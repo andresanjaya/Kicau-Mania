@@ -1,12 +1,12 @@
 import { MUSIC_URL, CAT_VIDEO_URL } from '../config';
 import { styles } from '../styles';
 
-export default function SidePanel({ isActive, onToggleCamera }) {
+export default function SidePanel({ isActive, onToggleCamera, isMobile }) {
   return (
-    <div style={styles.sidePanel}>
+    <div style={{ ...styles.sidePanel, ...(isMobile ? styles.sidePanelMobile : {}) }}>
       <div style={styles.instructionCard}>
         <h3 style={styles.instructionTitle}>Cara Pakai</h3>
-        <ol style={styles.instructionList}>
+        <ol style={{ ...styles.instructionList, ...(isMobile ? styles.instructionListMobile : {}) }}>
           <li>Klik <strong>Aktifkan Kamera</strong></li>
           <li>Izinkan akses kamera</li>
           <li><strong>Lambaikan tangan</strong> ke kamera</li>
@@ -22,9 +22,9 @@ export default function SidePanel({ isActive, onToggleCamera }) {
         borderRadius: '12px',
         padding: '12px',
         border: '1px solid rgba(255,200,100,0.2)',
-        fontSize: '0.75rem',
+        fontSize: isMobile ? '0.93rem' : '0.75rem',
         color: 'rgba(255,200,100,0.9)',
-        lineHeight: '1.5',
+        lineHeight: isMobile ? '1.45' : '1.5',
       }}>
         <strong>💡 Jika tidak terdeteksi:</strong>
         <div style={{ marginTop: '4px' }}>• Pastikan cahaya cukup</div>
@@ -36,6 +36,7 @@ export default function SidePanel({ isActive, onToggleCamera }) {
         onClick={onToggleCamera}
         style={{
           ...styles.btn,
+          ...(isMobile ? styles.btnMobile : {}),
           background: isActive
             ? '#FF4466'
             : 'linear-gradient(135deg, #FF6B9D, #C44DFF)',
