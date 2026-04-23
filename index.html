@@ -18,8 +18,9 @@
       if (isLocalHost) {
         import('/src/main.jsx');
       } else {
-        const productionCss = '/Kicau-Mania/assets/main.css';
-        const productionEntry = '/Kicau-Mania/assets/chunk-main.js';
+        const BUILD_ID = '2026-04-23-gesture-v2';
+        const productionCss = `/Kicau-Mania/assets/main.css?v=${BUILD_ID}`;
+        const productionEntry = `/Kicau-Mania/assets/chunk-main.js?v=${BUILD_ID}`;
 
         const css = document.createElement('link');
         css.rel = 'stylesheet';
