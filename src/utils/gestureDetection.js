@@ -1,58 +1,92 @@
 /**
- * Detect "blow kiss" gesture - simplified for testing
- * Just check if hand is relatively closed/compact
+ * Basic euclidean distance between two landmarks.
+ */
+function distance(a, b) {
+  return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+/**
+ * Finger is considered extended when tip is clearly above pip (camera upright).
+ */
+function isFingerExtended(landmarks, tipIndex, pipIndex) {
+  const tip = landmarks[tipIndex];
+  const pip = landmarks[pipIndex];
+  return tip.y < pip.y - 0.015;
+}
+
+/**
+ * Finger is considered curled when tip is clearly below pip.
+ */
+function isFingerCurled(landmarks, tipIndex, pipIndex) {
+  const tip = landmarks[tipIndex];
+  const pip = landmarks[pipIndex];
+  return tip.y > pip.y + 0.015;
+}
+
+/**
+ * Detect "tutup mulut" gesture as a compact/closed hand.
  */
 export function detectBlowKissGesture(landmarks) {
   if (!landmarks || landmarks.length < 21) return false;
 
   const wrist = landmarks[0];
-  const indexTip = landmarks[8];
-  const middleTip = landmarks[12];
-  const ringTip = landmarks[16];
-  const pinkyTip = landmarks[20];
+  const fingertips = [8, 12, 16, 20].map((i) => landmarks[i]);
 
-  // Calculate average finger position
-  const avgY = (indexTip.y + middleTip.y + ringTip.y + pinkyTip.y) / 4;
+  const curledCount = [
+    isFingerCurled(landmarks, 8, 6),
+    isFingerCurled(landmarks, 12, 10),
+    isFingerCurled(landmarks, 16, 14),
+    isFingerCurled(landmarks, 20, 18),
+  ].filter(Boolean).length;
 
-  // If fingers are significantly lower than wrist (curled), it's a fist
-  const isFist = avgY > wrist.y + 0.05;
+  const avgTipDistanceToWrist =
+    fingertips.reduce((sum, tip) => sum + distance(tip, wrist), 0) / fingertips.length;
 
-  return isFist;
+  const isCompactHand = avgTipDistanceToWrist < 0.23;
+
+  return curledCount >= 3 && isCompactHand;
 }
 
 /**
- * Detect "waving" gesture - simplified for testing
- * Just check if hand is relatively open/spread
+ * Detect "melambai" gesture as open hand with finger spread.
  */
 export function detectWaveGesture(landmarks) {
   if (!landmarks || landmarks.length < 21) return false;
 
   const wrist = landmarks[0];
   const indexTip = landmarks[8];
-  const middleTip = landmarks[12];
-  const ringTip = landmarks[16];
   const pinkyTip = landmarks[20];
 
-  // Calculate average finger position
-  const avgY = (indexTip.y + middleTip.y + ringTip.y + pinkyTip.y) / 4;
+  const extendedCount = [
+    isFingerExtended(landmarks, 8, 6),
+    isFingerExtended(landmarks, 12, 10),
+    isFingerExtended(landmarks, 16, 14),
+    isFingerExtended(landmarks, 20, 18),
+  ].filter(Boolean).length;
 
-  // If fingers are above wrist, hand is open
-  const isOpen = avgY < wrist.y + 0.05;
+  const handScale = Math.max(distance(wrist, landmarks[9]), 0.001);
+  const tipSpread = distance(indexTip, pinkyTip) / handScale;
 
-  return isOpen;
+  const isOpenAndSpread = extendedCount >= 3 && tipSpread > 1.2;
+
+  return isOpenAndSpread;
 }
 
 /**
- * Detect any hand gesture
- * ULTRA LENIENT - just need to detect if hand exists!
- * No complex gesture checking, just "is there a hand?"
+ * Detect combo gesture: at least one closed hand and one open/wave hand.
  */
 export function detectGestureCombo(multiHandLandmarks) {
-  // If any hand is detected, trigger the gesture
   if (!multiHandLandmarks || multiHandLandmarks.length === 0) {
     return false;
   }
 
-  // ANY hand detected = gesture triggered
-  return true;
+  let hasFist = false;
+  let hasWave = false;
+
+  for (const landmarks of multiHandLandmarks) {
+    if (detectBlowKissGesture(landmarks)) hasFist = true;
+    if (detectWaveGesture(landmarks)) hasWave = true;
+  }
+
+  return hasFist && hasWave;
 }

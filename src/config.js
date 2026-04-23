@@ -13,18 +13,18 @@ export const MUSIC_URL = "/Kicau-Mania/sounds/sound.mp3";
 export const CAT_VIDEO_URL = "/Kicau-Mania/videos/cat.gif";
 
 // How many frames the gesture must be held before triggering
-// Very low for easy testing
-export const GESTURE_HOLD_FRAMES = 5;
+// Slightly higher to reduce false trigger
+export const GESTURE_HOLD_FRAMES = 8;
 
 // How long to show the cat animation (in milliseconds)
 export const CAT_DISPLAY_DURATION = 8000;
 
-// MediaPipe hands detection settings - ULTRA LENIENT
+// MediaPipe hands detection settings - tuned for better accuracy
 export const HANDS_CONFIG = {
   maxNumHands: 2,
-  modelComplexity: 0,  // 0 = lite/fast model, 1 = full
-  minDetectionConfidence: 0.1,  // SUPER LOW - detect almost anything
-  minTrackingConfidence: 0.1,   // SUPER LOW - track almost anything
+  modelComplexity: 1,  // 0 = lite/fast model, 1 = full
+  minDetectionConfidence: 0.6,
+  minTrackingConfidence: 0.6,
 };
 
 // Camera settings
