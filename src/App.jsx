@@ -19,6 +19,7 @@ import SidePanel from './components/SidePanel';
 import CatOverlay from './components/CatOverlay';
 
 export default function App() {
+  console.log('🚀 App component rendering');
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const handsRef = useRef(null);
