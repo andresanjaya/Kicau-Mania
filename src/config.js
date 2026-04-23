@@ -5,12 +5,12 @@
 // Music URL - ganti dengan path ke file music Anda
 // Format: MP3, OGG, WAV, etc.
 // File bisa diletakkan di folder public/sounds/
-export const MUSIC_URL = "/sounds/sound.mp3";
+export const MUSIC_URL = "/Kicau-Mania/sounds/sound.mp3";
 
 // Cat Video URL - Video kucing dengan transparent background
 // Format: MP4, WebM (dengan alpha channel/transparency)
 // File bisa diletakkan di folder public/videos/
-export const CAT_VIDEO_URL = "/videos/video.webm";
+export const CAT_VIDEO_URL = "/Kicau-Mania/videos/video.webm";
 
 // How many frames the gesture must be held before triggering
 // Very low for easy testing
