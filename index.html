@@ -10,6 +10,24 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module">
+      const isLocalHost =
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1';
+
+      if (isLocalHost) {
+        import('/src/main.jsx');
+      } else {
+        const productionCss = '/Kicau-Mania/assets/' + 'index-DtJMLOwC.css';
+        const productionEntry = '/Kicau-Mania/assets/' + 'index-Bz0Q56PJ.js';
+
+        const css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = productionCss;
+        document.head.appendChild(css);
+
+        import(productionEntry);
+      }
+    </script>
   </body>
 </html>
