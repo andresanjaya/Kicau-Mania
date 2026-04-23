@@ -36,7 +36,8 @@ export default function App() {
   const fistRecentFramesRef = useRef(0);
   const waveRecentFramesRef = useRef(0);
 
-  const GESTURE_MEMORY_FRAMES = 14;
+  // RELAXED: was 14 → 20 (gesture "diingat" lebih lama antar frame)
+  const GESTURE_MEMORY_FRAMES = 20;
 
   // Check if MediaPipe is loaded on mount
   useEffect(() => {
@@ -101,7 +102,7 @@ export default function App() {
 
     // Debug log
     if (DEBUG_MODE) {
-      console.log(`Hands: ${multiHandLandmarks.length} | Fist: ${hasFist} | Wave: ${hasWave} | Progress: ${gestureCountRef.current}/${GESTURE_HOLD_FRAMES}`);
+      console.log(`Hands: ${multiHandLandmarks.length} | Fist: ${hasFist} | Wave: ${hasWave} | Fist mem: ${fistRecentFramesRef.current} | Wave mem: ${waveRecentFramesRef.current} | Progress: ${gestureCountRef.current}/${GESTURE_HOLD_FRAMES}`);
     }
 
     // Keep short memory so fist and wave can be recognized across nearby frames.
