@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/Kicau-Mania/',
+  base: process.env.VERCEL ? '/' : '/Kicau-Mania/',
   build: {
     rollupOptions: {
       output: {
@@ -13,7 +13,6 @@ export default defineConfig({
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
             return 'assets/main.css';
           }
-
           return 'assets/[name][extname]';
         },
       },
