@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.VERCEL ? '/' : '/Kicau-Mania/',
+  base: process.env.GITHUB_ACTIONS ? '/Kicau-Mania/' : '/',
   build: {
     rollupOptions: {
       output: {
